@@ -2,37 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:fillViewport="true"
         android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/list"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/noDataLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/mainBackColor"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
+            <com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_no_video_recording" />
+                android:id="@+id/calendarView"
+                app:primaryColor="@color/green"
+                app:textColor="@android:color/white"
+                android:layout_alignParentTop="true"
+                app:selectedItem_textColor="@color/black"
+                app:todayItem_textColor="@color/black"
+                app:todayItem_background="@drawable/circle_white_solid_background"
+                app:selectedItem_background="@drawable/circle_white_solid_background"
+                app:buttonLeft_drawableTintColor="@android:color/white"
+                app:buttonRight_drawableTintColor="@android:color/white"
+                app:expandIconColor="@android:color/white">
+            </com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_below="@id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:fontFamily="@font/nunito_sans"
-                android:text="No videos found" />
-        </LinearLayout>
 
-    </RelativeLayout>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
 </LinearLayout>

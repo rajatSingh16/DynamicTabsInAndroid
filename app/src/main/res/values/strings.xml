@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">VideoApplication</string>
-    <string name="banner"></string>
-    <string name="APP_ID"></string>
-    <string name="inter"></string>
+    <string name="banner">ca-app-pub-1840292115885297/3291653881</string>
+    <string name="APP_ID">ca-app-pub-1840292115885297~6300960606</string>
+    <string name="inter">ca-app-pub-1840292115885297/5389249905</string>
 </resources>

@@ -7,4 +7,6 @@
     <color name="black">#000</color>
     <color name="mainBackColor">#f7f7f7</color>
     <color name="red">#dd4f42</color>
+    <color name="green">#0d9324</color>
+    <color name="grey">#949799</color>
 </resources>

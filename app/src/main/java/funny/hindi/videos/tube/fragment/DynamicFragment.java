@@ -1,43 +1,33 @@
 package funny.hindi.videos.tube.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.shrikanthravi.collapsiblecalendarview.data.Day;
+import com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import funny.hindi.videos.tube.BuildConfig;
 import funny.hindi.videos.tube.R;
-import funny.hindi.videos.tube.adapter.OnBottomReachedListener;
 import funny.hindi.videos.tube.adapter.VideoAdapter;
-import funny.hindi.videos.tube.mode.VideoModel;
 
 public class DynamicFragment extends Fragment {
 
     View view;
     @BindView(R.id.list)
     RecyclerView list;
-    @BindView(R.id.noDataLayout)
-    LinearLayout noDataLayout;
 
     public static DynamicFragment newInstance(String val) {
         DynamicFragment fragment = new DynamicFragment();
@@ -48,18 +38,56 @@ public class DynamicFragment extends Fragment {
     }
 
     DatabaseReference mDatabase;
-    ArrayList<VideoModel> videoModelArrayList = new ArrayList<>();
+    ArrayList<String> videoModelArrayList = new ArrayList<>();
     String node;
     VideoAdapter videoAdapter;
-    InterstitialAd mInterstitialAd;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_dynamic, container, false);
         node = getArguments().getString("someValue");
-        Log.i(">>val", "onCreateView: " + node);
         ButterKnife.bind(DynamicFragment.this, view);
+
+
+        videoModelArrayList.clear();
+        videoAdapter = new VideoAdapter(getActivity(), videoModelArrayList);
+        list.setLayoutManager(new LinearLayoutManager(getActivity()));
+        list.setAdapter(videoAdapter);
+        final CollapsibleCalendar collapsibleCalendar = view.findViewById(R.id.calendarView);
+        collapsibleCalendar.setVisibility(View.GONE);
+        list.setVisibility(View.GONE);
+        collapsibleCalendar.setCalendarListener(new CollapsibleCalendar.CalendarListener() {
+            @Override
+            public void onDaySelect() {
+                Day day = collapsibleCalendar.getSelectedDay();
+
+                Log.i(">>data", "Selected Day: "
+
+
+                        + day.getYear() + "/" + (day.getMonth() + 1) + "/" + day.getDay());
+            }
+
+            @Override
+            public void onItemClick(View view) {
+
+            }
+
+            @Override
+            public void onDataUpdate() {
+
+            }
+
+            @Override
+            public void onMonthChange() {
+
+            }
+
+            @Override
+            public void onWeekChange(int i) {
+
+            }
+        });
 
         return view;
     }
